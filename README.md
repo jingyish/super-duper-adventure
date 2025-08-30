@@ -1,15 +1,21 @@
-# Field-based PCB Diagnostics – BMS Testing
-This board was removed from a battery energy storage system during a field inspection. I was responsible for determining whether the board was electrically damaged or could still be reused.
+## Field-based PCB Testing – Loop Card & BMS Boards
 
-Continuity Testing: Using a multimeter in continuity mode, I tested:
+In the field, I’m often responsible for diagnosing two types of boards used in energy storage systems: loop cards (fire safety system boards) and BMS (battery management system) communication boards.
 
-Power input path (DC+ / DC- across connectors and fuses)
-Relay drive paths (signal pin to coil terminals)
-Voltage output pins and protection diodes
-Decision Criteria:
+### 1. Loop Card – Programming & Control Verification
 
-If power input trace was broken or a fuse was open, the board was rejected.
-If control signals had discontinuity from I/O connector to load components, the board was flagged for repair.
-If no electrical failures were found, the board was re-qualified for reuse after cleaning and inspection.
-Notes
-Although I didn’t design this PCB, my experience with system-level electrical diagnostics gives me a strong practical intuition. 
+These boards manage components like contactors and fans in fire suppression systems. I check:
+- **Programming interface continuity**:  
+  Using a multimeter, I verify if UART or SWD pins are properly connected to the microcontroller.  
+  If there's an open circuit, the board may fail to accept firmware, triggering errors like “program not loaded.”
+- **Control signal paths**:  
+  I test relay control lines, 24V input power, and trace continuity from connectors to loads.
+
+### 2. BMS Communication Board 
+
+These boards report battery pack data over CAN bus. My field checks include:
+- **CAN-H and CAN-L trace continuity** from connector to CAN transceiver
+- **End-to-end bus resistance** 
+
+Although I didn’t design these boards, my experience with hands-on testing has given me strong diagnostic intuition to determine if a board can be reused or should be replaced.
+
